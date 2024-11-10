@@ -54,7 +54,7 @@ public class login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(76, 111, 191));
+        jPanel1.setBackground(new java.awt.Color(0, 151, 178));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
         jLabel1.setForeground(java.awt.Color.white);
@@ -76,7 +76,7 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        LoginBtn.setBackground(new java.awt.Color(123, 150, 212));
+        LoginBtn.setBackground(new java.awt.Color(3, 180, 211));
         LoginBtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         LoginBtn.setForeground(new java.awt.Color(255, 255, 255));
         LoginBtn.setText("Login");
@@ -125,7 +125,7 @@ public class login extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel3.setBackground(new java.awt.Color(123, 150, 212));
+        jPanel3.setBackground(new java.awt.Color(0, 151, 178));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -138,7 +138,7 @@ public class login extends javax.swing.JFrame {
             .addGap(0, 153, Short.MAX_VALUE)
         );
 
-        jPanel4.setBackground(new java.awt.Color(123, 150, 212));
+        jPanel4.setBackground(new java.awt.Color(0, 151, 178));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -152,15 +152,15 @@ public class login extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(76, 111, 191));
+        jLabel2.setForeground(new java.awt.Color(0, 151, 178));
         jLabel2.setText("MINI-BUS");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(76, 111, 191));
+        jLabel5.setForeground(new java.awt.Color(0, 151, 178));
         jLabel5.setText("MANAGEMENT");
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(76, 111, 191));
+        jLabel7.setForeground(new java.awt.Color(0, 151, 178));
         jLabel7.setText("SYSTEM");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

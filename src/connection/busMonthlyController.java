@@ -68,7 +68,7 @@ public void deleteMonthlyToDatabase(monthlyModel deleteData) {
         }
     }
 }
-    public void updateMonthlyToDatabase(monthlyModel updateData, int id) {
+    public void updateMonthlyToDatabase(monthlyModel updateData, int idbus) {
     try {
         String sql = "UPDATE busmonthly SET route = ?, estimatedtime = ? WHERE idbus = ?";
         
@@ -76,7 +76,7 @@ public void deleteMonthlyToDatabase(monthlyModel deleteData) {
         
         p.setString(1, updateData.getRoute());
         p.setString(2, updateData.getEstimatedtime());
-        p.setInt(3, id);
+        p.setInt(3, idbus);
         int rowsAffected = p.executeUpdate();
         
         if (rowsAffected > 0) {

@@ -70,6 +70,7 @@ public class populateController {
                 Vector <Object> v = new Vector<>();
                 v.add(rs.getString("route"));
                 v.add(rs.getString("estimatedtime"));
+                v.add(rs.getInt("idbus"));
                 model.addRow(v);
            
         }

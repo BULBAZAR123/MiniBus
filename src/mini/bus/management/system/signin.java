@@ -57,7 +57,7 @@ public class signin extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(76, 111, 191));
+        jPanel2.setBackground(new java.awt.Color(0, 151, 178));
         jPanel2.setPreferredSize(new java.awt.Dimension(253, 402));
 
         jPanel3.setBackground(new java.awt.Color(246, 246, 246));
@@ -134,11 +134,11 @@ public class signin extends javax.swing.JFrame {
         );
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(76, 111, 191));
+        jLabel3.setForeground(new java.awt.Color(0, 151, 178));
         jLabel3.setText("Username");
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(76, 111, 191));
+        jLabel1.setForeground(new java.awt.Color(0, 151, 178));
         jLabel1.setText("Welcome!");
 
         usernameBtn.setForeground(new java.awt.Color(102, 102, 102));
@@ -149,12 +149,12 @@ public class signin extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(76, 111, 191));
+        jLabel4.setForeground(new java.awt.Color(0, 151, 178));
         jLabel4.setText("Password");
 
         passwordBtn.setForeground(new java.awt.Color(102, 102, 102));
 
-        SigninBtn.setBackground(new java.awt.Color(123, 150, 212));
+        SigninBtn.setBackground(new java.awt.Color(3, 180, 211));
         SigninBtn.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         SigninBtn.setForeground(new java.awt.Color(255, 255, 255));
         SigninBtn.setText("Sign In");
@@ -168,7 +168,7 @@ public class signin extends javax.swing.JFrame {
         });
 
         LoginBtn.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        LoginBtn.setForeground(new java.awt.Color(76, 111, 191));
+        LoginBtn.setForeground(new java.awt.Color(0, 151, 178));
         LoginBtn.setText("Login");
         LoginBtn.setBorder(null);
         LoginBtn.setBorderPainted(false);
@@ -182,7 +182,7 @@ public class signin extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(76, 111, 191));
+        jLabel6.setForeground(new java.awt.Color(0, 151, 178));
         jLabel6.setText("Company Name");
 
         busnameBtn.setForeground(new java.awt.Color(102, 102, 102));
@@ -193,12 +193,12 @@ public class signin extends javax.swing.JFrame {
         });
 
         jCheckBox1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(76, 111, 191));
+        jCheckBox1.setForeground(new java.awt.Color(0, 151, 178));
         jCheckBox1.setText("Show Password");
         jCheckBox1.setContentAreaFilled(false);
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(76, 111, 191));
+        jLabel8.setForeground(new java.awt.Color(0, 151, 178));
         jLabel8.setText("Already have an account?");
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 102));

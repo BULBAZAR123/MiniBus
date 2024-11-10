@@ -76,7 +76,7 @@ public void deleteStaffToDatabase(staffModel deleteData) {
         }
     }
 }
-public void updateStaffToDatabase(staffModel updateData, int id) {
+public void updateStaffToDatabase(staffModel updateData, int idstaff) {
     try {
         String sql = "UPDATE staff SET name = ?, job = ?, age = ?, gender = ? WHERE idstaff = ?";
         
@@ -86,7 +86,7 @@ public void updateStaffToDatabase(staffModel updateData, int id) {
         p.setString(2, updateData.getJob());
         p.setInt(3, updateData.getAge());
         p.setString(4, updateData.getGender());
-        p.setInt(5, id);
+        p.setInt(5, idstaff);
         int rowsAffected = p.executeUpdate();
         
         if (rowsAffected > 0) {
