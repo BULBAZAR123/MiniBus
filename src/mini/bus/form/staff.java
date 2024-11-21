@@ -19,13 +19,11 @@ import java.sql.Statement;
  * @author Administrator
  */
 public class staff extends javax.swing.JPanel {
-    PreparedStatement ps;
-    ResultSet rs;
     private staffController controller;
     private DefaultTableModel staffTableModel;
     public staff() {
         initComponents();
-        idStaff.setVisible(true);
+        idStaff.setVisible(false);
         staffTableModel = (DefaultTableModel) staffTable.getModel();
         populateStaffTable(staffTable);
         controller = new staffController(staffTableModel);
@@ -55,6 +53,7 @@ public class staff extends javax.swing.JPanel {
         jobBox.setSelectedItem("");
         ageField.setText("");
         genderBox.setSelectedItem("");
+        idStaff.setText("");
     }
 //    public void FillCombo() throws SQLException{
 //        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/minibus", "root", "123456789");
@@ -225,7 +224,7 @@ public class staff extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(genderBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addGroup(panelBorder3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelBorder3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -424,6 +423,6 @@ public class staff extends javax.swing.JPanel {
     private swing.PanelBorder panelBorder3;
     private swing.PanelBorder panelBorder4;
     private swing.PanelBorder panelBorder5;
-    private javax.swing.JTable staffTable;
+    public javax.swing.JTable staffTable;
     // End of variables declaration//GEN-END:variables
 }

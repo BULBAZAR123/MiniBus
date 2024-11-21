@@ -87,4 +87,46 @@ public class populateController {
         }
     }
    } 
+    public static void populateDailyTable( JTable table) {
+    Connection connection = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        
+        ps = DatabaseConnection.getInstance().getConnection().prepareStatement("SELECT * FROM busdaily");
+       
+
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); 
+        rs = ps.executeQuery();
+        while (rs.next()) {
+           
+            
+                
+            
+                Vector <Object> v = new Vector<>();
+                v.add(rs.getInt("busnumber"));
+                v.add(rs.getInt("busseats"));
+                v.add(rs.getString("stoproutes"));
+                v.add(rs.getString("departuretime"));
+                v.add(rs.getString("driver"));
+                v.add(rs.getString("conductor"));
+                v.add(rs.getInt("idbusdaily"));
+                model.addRow(v);
+           
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error closing connection: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+       e.printStackTrace();
+        }
+    }
+   } 
 }

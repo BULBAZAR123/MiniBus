@@ -4,10 +4,14 @@
  */
 package mini.bus.form;
 
-import connection.DatabaseConnection;
-import java.sql.ResultSet;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import connection.busDailyController;
+import connection.busMonthlyController;
+import static connection.populateController.populateDailyTable;
+import static connection.populateController.populateMonthlyTable;
+import static connection.populateController.populateStaffTable;
+import connection.staffController;
+import javax.swing.table.DefaultTableModel;
+import models.dailyModel;
 
 
 
@@ -17,24 +21,57 @@ import java.sql.PreparedStatement;
  */
 public class busdaily extends javax.swing.JPanel {
 
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
+    
+    private busMonthlyController monthlycontroller;
+    private DefaultTableModel busMonthlyTableModel;
+    
+    private staffController staffcontroller;
+    private DefaultTableModel staffTableModel;
+    private busDailyController dailycontroller;
+    private DefaultTableModel dailyTableModel;
     public busdaily() {
         initComponents();
-        updateCombobox();
+        idbusdaily.setVisible(false);
+        busMonthlyTableModel = (DefaultTableModel) monthlyTable.getModel();
+        populateMonthlyTable(monthlyTable);
+        monthlycontroller = new busMonthlyController(busMonthlyTableModel);
+        staffTableModel = (DefaultTableModel) staffTable.getModel();
+        populateStaffTable(staffTable);
+        staffcontroller = new staffController(staffTableModel);
+        dailyTableModel = (DefaultTableModel) busTable.getModel();
+        populateDailyTable(busTable);
+        dailycontroller = new busDailyController(dailyTableModel);
+        
     }
-    private void updateCombobox(){
-        String sql = "select * from busmonthly";
-        try {
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while(rs.next()){
-                routeBox.addItem(rs.getString("route"));
-            }
-        } catch (Exception e) {
-        }
+    public void addDataBtn() {
+        dailyModel newdata = new dailyModel(Integer.parseInt(noField.getText()),Integer.parseInt(seatField.getText()), busRoute.getText(), departureTime.getText(), driverField.getText(), conductorField.getText());
+        dailycontroller.addBusDailyToDatabase(newdata);
+        populateDailyTable(busTable);
+        setFieldEmpty();
     }
+    public void deleteDataBtn()  {
+         dailyModel newdata = new dailyModel(Integer.parseInt(noField.getText()),Integer.parseInt(seatField.getText()), busRoute.getText(), departureTime.getText(), driverField.getText(), conductorField.getText());
+        dailycontroller.deleteDailyToDatabase(newdata);
+        populateDailyTable(busTable);
+        setFieldEmpty();
+    }
+    public void updateDataBtn()  {
+        int idData = Integer.parseInt(idbusdaily.getText());
+        dailyModel newdata = new dailyModel(Integer.parseInt(noField.getText()),Integer.parseInt(seatField.getText()), busRoute.getText(), departureTime.getText(), driverField.getText(), conductorField.getText());
+        dailycontroller.updateDailyToDatabase(newdata, idData);
+        populateDailyTable(busTable);
+        setFieldEmpty();
+    }
+    public void setFieldEmpty(){
+        noField.setText("");
+        seatField.setText("");
+        busRoute.setText("");
+        departureTime.setText("");
+        driverField.setText("");
+        conductorField.setText("");
+        idbusdaily.setText("");
+    }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,20 +90,30 @@ public class busdaily extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         seatField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        routeBox = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        timeBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        conductorBox = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        driverBox = new javax.swing.JComboBox<>();
-        jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        refreshBtn = new javax.swing.JButton();
+        updateBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
+        driverField = new javax.swing.JTextField();
+        busRoute = new javax.swing.JTextField();
+        departureTime = new javax.swing.JTextField();
+        conductorField = new javax.swing.JTextField();
+        addBtn1 = new javax.swing.JButton();
+        idbusdaily = new javax.swing.JLabel();
         panelBorder2 = new swing.PanelBorder();
         panelBorder4 = new swing.PanelBorder();
         jScrollPane2 = new javax.swing.JScrollPane();
         busTable = new javax.swing.JTable();
+        panelBorder5 = new swing.PanelBorder();
+        panelBorder6 = new swing.PanelBorder();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        monthlyTable = new javax.swing.JTable();
+        panelBorder7 = new swing.PanelBorder();
+        panelBorder8 = new swing.PanelBorder();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        staffTable = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -100,69 +147,80 @@ public class busdaily extends javax.swing.JPanel {
         panelBorder1.add(jLabel6);
         jLabel6.setBounds(60, 230, 142, 18);
 
-        routeBox.setBorder(null);
-        routeBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                routeBoxActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(routeBox);
-        routeBox.setBounds(60, 250, 255, 30);
-
         jLabel7.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         jLabel7.setText("Estimated Departure Time");
         panelBorder1.add(jLabel7);
         jLabel7.setBounds(60, 300, 172, 18);
-
-        timeBox.setBorder(null);
-        panelBorder1.add(timeBox);
-        timeBox.setBounds(60, 330, 255, 30);
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         jLabel8.setText("Conductor");
         panelBorder1.add(jLabel8);
         jLabel8.setBounds(60, 370, 100, 18);
 
-        conductorBox.setBorder(null);
-        panelBorder1.add(conductorBox);
-        conductorBox.setBounds(60, 400, 255, 30);
-
         jLabel9.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
         jLabel9.setText("Driver");
         panelBorder1.add(jLabel9);
         jLabel9.setBounds(60, 450, 50, 18);
 
-        driverBox.setBorder(null);
-        panelBorder1.add(driverBox);
-        driverBox.setBounds(60, 470, 255, 30);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add-file-45.png"))); // NOI18N
-        jButton4.setBorderPainted(false);
-        jButton4.setContentAreaFilled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        refreshBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add-file-45.png"))); // NOI18N
+        refreshBtn.setBorderPainted(false);
+        refreshBtn.setContentAreaFilled(false);
+        refreshBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                refreshBtnActionPerformed(evt);
             }
         });
-        panelBorder1.add(jButton4);
-        jButton4.setBounds(90, 510, 51, 50);
+        panelBorder1.add(refreshBtn);
+        refreshBtn.setBounds(350, 10, 30, 30);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/update-file-45.png"))); // NOI18N
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        updateBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/update-file-45.png"))); // NOI18N
+        updateBtn.setBorderPainted(false);
+        updateBtn.setContentAreaFilled(false);
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                updateBtnActionPerformed(evt);
             }
         });
-        panelBorder1.add(jButton1);
-        jButton1.setBounds(180, 510, 51, 50);
+        panelBorder1.add(updateBtn);
+        updateBtn.setBounds(180, 510, 51, 50);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete-file-45.png"))); // NOI18N
-        jButton5.setBorderPainted(false);
-        jButton5.setContentAreaFilled(false);
-        panelBorder1.add(jButton5);
-        jButton5.setBounds(270, 510, 51, 50);
+        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete-file-45.png"))); // NOI18N
+        deleteBtn.setBorderPainted(false);
+        deleteBtn.setContentAreaFilled(false);
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(deleteBtn);
+        deleteBtn.setBounds(270, 510, 51, 50);
+        panelBorder1.add(driverField);
+        driverField.setBounds(60, 470, 250, 30);
+        panelBorder1.add(busRoute);
+        busRoute.setBounds(60, 252, 250, 30);
+
+        departureTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                departureTimeActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(departureTime);
+        departureTime.setBounds(60, 330, 250, 30);
+        panelBorder1.add(conductorField);
+        conductorField.setBounds(60, 400, 250, 30);
+
+        addBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add-file-45.png"))); // NOI18N
+        addBtn1.setBorderPainted(false);
+        addBtn1.setContentAreaFilled(false);
+        addBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtn1ActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(addBtn1);
+        addBtn1.setBounds(90, 510, 51, 50);
+        panelBorder1.add(idbusdaily);
+        idbusdaily.setBounds(270, 20, 50, 30);
 
         panelBorder3.setLayer(panelBorder1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -179,7 +237,7 @@ public class busdaily extends javax.swing.JPanel {
             panelBorder3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -190,17 +248,17 @@ public class busdaily extends javax.swing.JPanel {
         busTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 151, 178)));
         busTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Bus no", "Seats", "Stop Routes", "Time Schedule"
+                "Bus No.", "Seats", "Stop Routes", "Time Schedule", "Driver", "Conductor", "Bus ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -211,12 +269,22 @@ public class busdaily extends javax.swing.JPanel {
         busTable.setOpaque(false);
         busTable.setSelectionBackground(new java.awt.Color(0, 151, 178));
         busTable.setSelectionForeground(new java.awt.Color(0, 151, 178));
+        busTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                busTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(busTable);
         if (busTable.getColumnModel().getColumnCount() > 0) {
             busTable.getColumnModel().getColumn(0).setResizable(false);
             busTable.getColumnModel().getColumn(1).setResizable(false);
             busTable.getColumnModel().getColumn(2).setResizable(false);
             busTable.getColumnModel().getColumn(3).setResizable(false);
+            busTable.getColumnModel().getColumn(4).setResizable(false);
+            busTable.getColumnModel().getColumn(5).setResizable(false);
+            busTable.getColumnModel().getColumn(6).setMinWidth(0);
+            busTable.getColumnModel().getColumn(6).setPreferredWidth(0);
+            busTable.getColumnModel().getColumn(6).setMaxWidth(0);
         }
 
         panelBorder4.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -234,8 +302,8 @@ public class busdaily extends javax.swing.JPanel {
             panelBorder4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(406, 406, 406))
         );
 
         panelBorder2.setLayer(panelBorder4, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -251,10 +319,173 @@ public class busdaily extends javax.swing.JPanel {
         );
         panelBorder2Layout.setVerticalGroup(
             panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorder2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelBorder4, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelBorder4, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
+        );
+
+        panelBorder5.setBackground(new java.awt.Color(0, 151, 178));
+
+        panelBorder6.setBackground(new java.awt.Color(255, 255, 255));
+
+        monthlyTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Route", "Time Schedule", "Bus No."
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        monthlyTable.setGridColor(new java.awt.Color(255, 255, 255));
+        monthlyTable.setOpaque(false);
+        monthlyTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        monthlyTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                monthlyTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(monthlyTable);
+        if (monthlyTable.getColumnModel().getColumnCount() > 0) {
+            monthlyTable.getColumnModel().getColumn(0).setResizable(false);
+            monthlyTable.getColumnModel().getColumn(1).setResizable(false);
+            monthlyTable.getColumnModel().getColumn(2).setMinWidth(0);
+            monthlyTable.getColumnModel().getColumn(2).setPreferredWidth(0);
+            monthlyTable.getColumnModel().getColumn(2).setMaxWidth(0);
+        }
+
+        panelBorder6.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout panelBorder6Layout = new javax.swing.GroupLayout(panelBorder6);
+        panelBorder6.setLayout(panelBorder6Layout);
+        panelBorder6Layout.setHorizontalGroup(
+            panelBorder6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder6Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelBorder6Layout.setVerticalGroup(
+            panelBorder6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder6Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        panelBorder5.setLayer(panelBorder6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout panelBorder5Layout = new javax.swing.GroupLayout(panelBorder5);
+        panelBorder5.setLayout(panelBorder5Layout);
+        panelBorder5Layout.setHorizontalGroup(
+            panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelBorder6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelBorder5Layout.setVerticalGroup(
+            panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelBorder6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelBorder7.setBackground(new java.awt.Color(0, 151, 178));
+
+        panelBorder8.setBackground(new java.awt.Color(255, 255, 255));
+
+        staffTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Name", "Job", "Age", "Gender", "Staff Id"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        staffTable.setGridColor(new java.awt.Color(255, 255, 255));
+        staffTable.setOpaque(false);
+        staffTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        staffTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                staffTableMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(staffTable);
+
+        panelBorder8.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout panelBorder8Layout = new javax.swing.GroupLayout(panelBorder8);
+        panelBorder8.setLayout(panelBorder8Layout);
+        panelBorder8Layout.setHorizontalGroup(
+            panelBorder8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder8Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelBorder8Layout.setVerticalGroup(
+            panelBorder8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        panelBorder7.setLayer(panelBorder8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout panelBorder7Layout = new javax.swing.GroupLayout(panelBorder7);
+        panelBorder7.setLayout(panelBorder7Layout);
+        panelBorder7Layout.setHorizontalGroup(
+            panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelBorder8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelBorder7Layout.setVerticalGroup(
+            panelBorder7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBorder7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelBorder8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -262,43 +493,107 @@ public class busdaily extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(panelBorder2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelBorder2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelBorder5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelBorder7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(panelBorder3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelBorder2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelBorder3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelBorder3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(151, 151, 151))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(panelBorder5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelBorder7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelBorder2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        updateDataBtn();
+    }//GEN-LAST:event_updateBtnActionPerformed
 
-    private void routeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_routeBoxActionPerformed
+    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_routeBoxActionPerformed
+        populateStaffTable(staffTable);
+        populateMonthlyTable(monthlyTable);
+    }//GEN-LAST:event_refreshBtnActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void monthlyTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_monthlyTableMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) monthlyTable.getModel();
+        int selectIndex = monthlyTable.getSelectedRow();
+
+        busRoute.setText(model.getValueAt(selectIndex, 0).toString());
+        departureTime.setText(model.getValueAt(selectIndex, 1).toString());
+    }//GEN-LAST:event_monthlyTableMouseClicked
+
+    private void staffTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_staffTableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) staffTable.getModel();
+        int selectIndex = staffTable.getSelectedRow();
+        if(selectIndex != -1){
+           String name = model.getValueAt(selectIndex, 0).toString();
+           String job = model.getValueAt(selectIndex, 1).toString();
+            
+        
+         if (job.equalsIgnoreCase("Conductor")) {
+        conductorField.setText(name);  
+        } else if (job.equalsIgnoreCase("Driver")) {
+        driverField.setText(name);  
+    }
+        }
+    }//GEN-LAST:event_staffTableMouseClicked
+
+    private void departureTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departureTimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_departureTimeActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+        deleteDataBtn();
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void busTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_busTableMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) busTable.getModel();
+        int selectIndex = busTable.getSelectedRow();
+        
+        noField.setText(model.getValueAt(selectIndex, 0).toString());
+        seatField.setText(model.getValueAt(selectIndex, 1).toString());
+        busRoute.setText(model.getValueAt(selectIndex, 2).toString());
+        departureTime.setText(model.getValueAt(selectIndex, 3).toString());
+        driverField.setText(model.getValueAt(selectIndex, 4).toString());
+        conductorField.setText(model.getValueAt(selectIndex, 5).toString());
+        idbusdaily.setText(model.getValueAt(selectIndex, 6).toString());
+    }//GEN-LAST:event_busTableMouseClicked
+
+    private void addBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtn1ActionPerformed
+        // TODO add your handling code here:
+        addDataBtn();
+    }//GEN-LAST:event_addBtn1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBtn1;
+    private javax.swing.JTextField busRoute;
     private javax.swing.JTable busTable;
-    private javax.swing.JComboBox<String> conductorBox;
-    private javax.swing.JComboBox<String> driverBox;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JTextField conductorField;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JTextField departureTime;
+    private javax.swing.JTextField driverField;
+    private javax.swing.JLabel idbusdaily;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -306,19 +601,25 @@ public class busdaily extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable monthlyTable;
     private javax.swing.JTextField noField;
     private swing.PanelBorder panelBorder1;
     private swing.PanelBorder panelBorder2;
     private swing.PanelBorder panelBorder3;
     private swing.PanelBorder panelBorder4;
-    private javax.swing.JComboBox<String> routeBox;
+    private swing.PanelBorder panelBorder5;
+    private swing.PanelBorder panelBorder6;
+    private swing.PanelBorder panelBorder7;
+    private swing.PanelBorder panelBorder8;
+    private javax.swing.JButton refreshBtn;
     private javax.swing.JTextField seatField;
-    private javax.swing.JComboBox<String> timeBox;
+    private javax.swing.JTable staffTable;
+    private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 
-    public void pack() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }

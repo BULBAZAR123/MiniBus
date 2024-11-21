@@ -46,6 +46,7 @@ public class busmonthly extends javax.swing.JPanel {
     public void setFieldEmpty(){
         routeField.setText("");
         timeField.setText("");
+        idBus.setText("");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,8 +121,6 @@ public class busmonthly extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        idBus.setText("vd");
 
         panelBorder3.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelBorder3.setLayer(routeField, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -221,7 +220,7 @@ public class busmonthly extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "route", "time_schedule", "idbus"
+                "Route", "Time Schedule", "Bus No."
             }
         ) {
             Class[] types = new Class [] {
@@ -271,8 +270,8 @@ public class busmonthly extends javax.swing.JPanel {
             panelBorder5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder5Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         panelBorder4.setLayer(panelBorder5, javax.swing.JLayeredPane.DEFAULT_LAYER);

@@ -372,7 +372,8 @@ public class maindash extends javax.swing.JFrame {
     }//GEN-LAST:event_busmonthlyBtnActionPerformed
 
     private void dashBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashBtnActionPerformed
-forms(dashh);
+        forms(dashh);
+
     }//GEN-LAST:event_dashBtnActionPerformed
 
     private void staffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffBtnActionPerformed
