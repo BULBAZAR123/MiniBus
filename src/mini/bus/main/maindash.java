@@ -1,6 +1,8 @@
 
 package mini.bus.main;
 
+import static connection.populateController.populateDailyTable;
+import static connection.populateController.populateStaffTable;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -42,6 +44,7 @@ public class maindash extends javax.swing.JFrame {
      
     public maindash() {
         initComponents();
+        setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setBackground( Color.white);
         DASHBOARD.setLayout(new BorderLayout());
         
@@ -79,7 +82,6 @@ public class maindash extends javax.swing.JFrame {
     private void updateTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
         String currentTime = sdf.format(new Date());
-        time.setText(currentTime);
     }
   
     @SuppressWarnings("unchecked")
@@ -87,24 +89,19 @@ public class maindash extends javax.swing.JFrame {
     private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        time = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        logoutBtn = new javax.swing.JButton();
-        staffBtn = new javax.swing.JButton();
-        busmonthlyBtn = new javax.swing.JButton();
-        busdailyBtn = new javax.swing.JButton();
-        dashBtn = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        pictureBox2 = new swing.PictureBox();
+        pictureBox3 = new swing.PictureBox();
+        pictureBox4 = new swing.PictureBox();
+        pictureBox5 = new swing.PictureBox();
+        pictureBox6 = new swing.PictureBox();
         DASHBOARD = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        panelBorder1 = new swing.PanelBorder();
-        busname = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -112,7 +109,10 @@ public class maindash extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        pictureBox1 = new swing.PictureBox();
+        panelBorder2 = new swing.PanelBorder();
+        jLabel5 = new javax.swing.JLabel();
+        busname = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -123,114 +123,106 @@ public class maindash extends javax.swing.JFrame {
         kGradientPanel1.setkStartColor(new java.awt.Color(255, 255, 255));
         kGradientPanel1.setPreferredSize(new java.awt.Dimension(232, 359));
 
-        time.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
-        time.setForeground(new java.awt.Color(255, 255, 255));
-        time.setText("time");
-
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 151, 178)));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        logoutBtn.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        logoutBtn.setForeground(new java.awt.Color(51, 51, 51));
-        logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/log-out-50.png"))); // NOI18N
-        logoutBtn.setBorder(null);
-        logoutBtn.setContentAreaFilled(false);
-        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutBtnActionPerformed(evt);
-            }
-        });
-        jPanel4.add(logoutBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 477, 113, 113));
-
-        staffBtn.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        staffBtn.setForeground(new java.awt.Color(51, 51, 51));
-        staffBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user-groups-50.png"))); // NOI18N
-        staffBtn.setBorder(null);
-        staffBtn.setContentAreaFilled(false);
-        staffBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                staffBtnActionPerformed(evt);
-            }
-        });
-        jPanel4.add(staffBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 358, 113, 113));
-
-        busmonthlyBtn.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        busmonthlyBtn.setForeground(new java.awt.Color(51, 51, 51));
-        busmonthlyBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/route-50.png"))); // NOI18N
-        busmonthlyBtn.setBorder(null);
-        busmonthlyBtn.setContentAreaFilled(false);
-        busmonthlyBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                busmonthlyBtnActionPerformed(evt);
-            }
-        });
-        jPanel4.add(busmonthlyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 239, 113, 113));
-
-        busdailyBtn.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        busdailyBtn.setForeground(new java.awt.Color(51, 51, 51));
-        busdailyBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bus-50.png"))); // NOI18N
-        busdailyBtn.setBorder(null);
-        busdailyBtn.setContentAreaFilled(false);
-        busdailyBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                busdailyBtnActionPerformed(evt);
-            }
-        });
-        jPanel4.add(busdailyBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 120, 113, 113));
-
-        dashBtn.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        dashBtn.setForeground(new java.awt.Color(51, 51, 51));
-        dashBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/dashboard-50.png"))); // NOI18N
-        dashBtn.setBorder(null);
-        dashBtn.setContentAreaFilled(false);
-        dashBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dashBtnActionPerformed(evt);
-            }
-        });
-        jPanel4.add(dashBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 113, 113));
-
         jLabel9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel9.setText("        Log out");
-        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 543, 110, 50));
+        jLabel9.setText("    Log out");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
+        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 80, 20));
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel10.setText(" Dashboard");
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 80, 50));
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 80, 20));
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel11.setText("    Staffs");
-        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 80, 50));
+        jLabel11.setText("   Staffs");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 80, 20));
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel12.setText("     Bus");
-        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 80, 60));
+        jLabel12.setText("    Bus");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 60, 20));
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel13.setText("   Route");
-        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 80, 50));
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 80, 20));
+
+        pictureBox2.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/dashboard-50.png"))); // NOI18N
+        pictureBox2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureBox2MouseClicked(evt);
+            }
+        });
+        jPanel4.add(pictureBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 40, 40));
+
+        pictureBox3.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/bus-50.png"))); // NOI18N
+        pictureBox3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureBox3MouseClicked(evt);
+            }
+        });
+        jPanel4.add(pictureBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 40, 40));
+
+        pictureBox4.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/route-50.png"))); // NOI18N
+        pictureBox4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureBox4MouseClicked(evt);
+            }
+        });
+        jPanel4.add(pictureBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 40, 40));
+
+        pictureBox5.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/user-groups-50.png"))); // NOI18N
+        pictureBox5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureBox5MouseClicked(evt);
+            }
+        });
+        jPanel4.add(pictureBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 40, 40));
+
+        pictureBox6.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/log-out-50.png"))); // NOI18N
+        pictureBox6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureBox6MouseClicked(evt);
+            }
+        });
+        jPanel4.add(pictureBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 40, 40));
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(time, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                .addComponent(time))
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
         );
 
         DASHBOARD.setBackground(new java.awt.Color(255, 255, 255));
@@ -240,54 +232,15 @@ public class maindash extends javax.swing.JFrame {
         DASHBOARD.setLayout(DASHBOARDLayout);
         DASHBOARDLayout.setHorizontalGroup(
             DASHBOARDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1375, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         DASHBOARDLayout.setVerticalGroup(
             DASHBOARDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 732, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 151, 178));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        panelBorder1.setBackground(new java.awt.Color(3, 180, 211));
-
-        busname.setBackground(new java.awt.Color(255, 0, 51));
-        busname.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        busname.setForeground(new java.awt.Color(51, 51, 51));
-        busname.setText("busname");
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/company-45.png"))); // NOI18N
-
-        panelBorder1.setLayer(busname, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelBorder1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
-        panelBorder1.setLayout(panelBorder1Layout);
-        panelBorder1Layout.setHorizontalGroup(
-            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(busname, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                .addGap(17, 17, 17))
-        );
-        panelBorder1Layout.setVerticalGroup(
-            panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(busname, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
-        );
-
-        jPanel3.add(panelBorder1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 10, 170, 60));
-
-        jLabel1.setText("  jLabel1");
-        jLabel1.setOpaque(true);
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 10, 60, 60));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(3, 0));
 
@@ -334,59 +287,107 @@ public class maindash extends javax.swing.JFrame {
         jLabel7.setText("ini-Bus");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 56, 20));
 
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/logo.png"))); // NOI18N
+        jPanel3.add(pictureBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 80));
+
+        panelBorder2.setBackground(new java.awt.Color(3, 180, 211));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/company-45.png"))); // NOI18N
+        panelBorder2.add(jLabel5);
+        jLabel5.setBounds(10, 0, 45, 45);
+
+        busname.setBackground(new java.awt.Color(255, 0, 51));
+        busname.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        busname.setForeground(new java.awt.Color(51, 51, 51));
+        busname.setText("busname");
+        panelBorder2.add(busname);
+        busname.setBounds(70, 10, 70, 37);
+
+        jPanel3.add(panelBorder2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 10, 160, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(DASHBOARD, javax.swing.GroupLayout.DEFAULT_SIZE, 1375, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1553, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DASHBOARD, javax.swing.GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1370, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
-                    .addComponent(DASHBOARD, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)))
+                    .addComponent(DASHBOARD, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                    .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void busdailyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busdailyBtnActionPerformed
-        forms(daily);
-    }//GEN-LAST:event_busdailyBtnActionPerformed
-
-    private void busmonthlyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busmonthlyBtnActionPerformed
-        forms(monthly);
-    }//GEN-LAST:event_busmonthlyBtnActionPerformed
-
-    private void dashBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashBtnActionPerformed
+    private void pictureBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureBox2MouseClicked
+        // TODO add your handling code here:
         forms(dashh);
+        populateStaffTable(dashboard.staffTable);
+        populateDailyTable(dashboard.busTable);
+    }//GEN-LAST:event_pictureBox2MouseClicked
 
-    }//GEN-LAST:event_dashBtnActionPerformed
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        forms(dashh);
+        populateStaffTable(dashboard.staffTable);
+        populateDailyTable(dashboard.busTable);
+    }//GEN-LAST:event_jLabel10MouseClicked
 
-    private void staffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffBtnActionPerformed
-     forms(staf);
-    }//GEN-LAST:event_staffBtnActionPerformed
+    private void pictureBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureBox3MouseClicked
+        // TODO add your handling code here:
+        forms(daily);
+    }//GEN-LAST:event_pictureBox3MouseClicked
 
-    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-   login LoginFrame = new login();
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        // TODO add your handling code here:
+        forms(daily);
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void pictureBox4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureBox4MouseClicked
+        // TODO add your handling code here:
+        forms(monthly);
+    }//GEN-LAST:event_pictureBox4MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        // TODO add your handling code here:
+        forms(monthly);
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void pictureBox6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureBox6MouseClicked
+        // TODO add your handling code here:
+        login LoginFrame = new login();
         LoginFrame.setVisible(true);
         LoginFrame.pack();
         LoginFrame.setLocationRelativeTo(null); 
         this.dispose();
-    }//GEN-LAST:event_logoutBtnActionPerformed
+    }//GEN-LAST:event_pictureBox6MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // TODO add your handling code here:
+        login LoginFrame = new login();
+        LoginFrame.setVisible(true);
+        LoginFrame.pack();
+        LoginFrame.setLocationRelativeTo(null); 
+        this.dispose();
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void pictureBox5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureBox5MouseClicked
+        // TODO add your handling code here:
+        forms(staf);
+    }//GEN-LAST:event_pictureBox5MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+forms(staf);        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel11MouseClicked
 
 
    
@@ -416,22 +417,12 @@ public class maindash extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                maindash dash = new maindash();
-            dash.setVisible(true);
-                dash.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            }
-        });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel DASHBOARD;
-    private javax.swing.JButton busdailyBtn;
-    private javax.swing.JButton busmonthlyBtn;
     private javax.swing.JLabel busname;
-    private javax.swing.JButton dashBtn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -447,11 +438,13 @@ public class maindash extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private keeptoo.KGradientPanel kGradientPanel1;
-    private javax.swing.JButton logoutBtn;
-    private swing.PanelBorder panelBorder1;
-    private javax.swing.JButton staffBtn;
-    private javax.swing.JLabel time;
+    private swing.PanelBorder panelBorder2;
+    private swing.PictureBox pictureBox1;
+    private swing.PictureBox pictureBox2;
+    private swing.PictureBox pictureBox3;
+    private swing.PictureBox pictureBox4;
+    private swing.PictureBox pictureBox5;
+    private swing.PictureBox pictureBox6;
     // End of variables declaration//GEN-END:variables
 }

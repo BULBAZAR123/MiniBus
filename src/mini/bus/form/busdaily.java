@@ -93,15 +93,14 @@ public class busdaily extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        refreshBtn = new javax.swing.JButton();
-        updateBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
         driverField = new javax.swing.JTextField();
         busRoute = new javax.swing.JTextField();
         departureTime = new javax.swing.JTextField();
         conductorField = new javax.swing.JTextField();
-        addBtn1 = new javax.swing.JButton();
         idbusdaily = new javax.swing.JLabel();
+        pictureBox2 = new swing.PictureBox();
+        pictureBox1 = new swing.PictureBox();
+        pictureBox3 = new swing.PictureBox();
         panelBorder5 = new swing.PanelBorder();
         panelBorder6 = new swing.PanelBorder();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -159,39 +158,6 @@ public class busdaily extends javax.swing.JPanel {
         jLabel9.setText("Driver");
         panelBorder1.add(jLabel9);
         jLabel9.setBounds(60, 450, 50, 18);
-
-        refreshBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add-file-45.png"))); // NOI18N
-        refreshBtn.setBorderPainted(false);
-        refreshBtn.setContentAreaFilled(false);
-        refreshBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshBtnActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(refreshBtn);
-        refreshBtn.setBounds(350, 10, 30, 30);
-
-        updateBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/update-file-45.png"))); // NOI18N
-        updateBtn.setBorderPainted(false);
-        updateBtn.setContentAreaFilled(false);
-        updateBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateBtnActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(updateBtn);
-        updateBtn.setBounds(180, 510, 51, 50);
-
-        deleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete-file-45.png"))); // NOI18N
-        deleteBtn.setBorderPainted(false);
-        deleteBtn.setContentAreaFilled(false);
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(deleteBtn);
-        deleteBtn.setBounds(270, 510, 51, 50);
         panelBorder1.add(driverField);
         driverField.setBounds(60, 470, 250, 30);
         panelBorder1.add(busRoute);
@@ -206,19 +172,35 @@ public class busdaily extends javax.swing.JPanel {
         departureTime.setBounds(60, 330, 250, 30);
         panelBorder1.add(conductorField);
         conductorField.setBounds(60, 400, 250, 30);
-
-        addBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add-file-45.png"))); // NOI18N
-        addBtn1.setBorderPainted(false);
-        addBtn1.setContentAreaFilled(false);
-        addBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBtn1ActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(addBtn1);
-        addBtn1.setBounds(90, 510, 51, 50);
         panelBorder1.add(idbusdaily);
         idbusdaily.setBounds(270, 20, 50, 30);
+
+        pictureBox2.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/c-remove-48.png"))); // NOI18N
+        pictureBox2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureBox2MouseClicked(evt);
+            }
+        });
+        panelBorder1.add(pictureBox2);
+        pictureBox2.setBounds(250, 520, 50, 50);
+
+        pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/c-add-48.png"))); // NOI18N
+        pictureBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureBox1MouseClicked(evt);
+            }
+        });
+        panelBorder1.add(pictureBox1);
+        pictureBox1.setBounds(90, 520, 50, 50);
+
+        pictureBox3.setImage(new javax.swing.ImageIcon(getClass().getResource("/icons/c-update-48.png"))); // NOI18N
+        pictureBox3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pictureBox3MouseClicked(evt);
+            }
+        });
+        panelBorder1.add(pictureBox3);
+        pictureBox3.setBounds(170, 520, 50, 50);
 
         panelBorder3.setLayer(panelBorder1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -235,7 +217,7 @@ public class busdaily extends javax.swing.JPanel {
             panelBorder3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+                .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -458,33 +440,22 @@ public class busdaily extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addContainerGap()
                 .addComponent(panelBorder5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelBorder3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addComponent(panelBorder3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelBorder3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelBorder5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(126, Short.MAX_VALUE))
+                    .addComponent(panelBorder5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelBorder3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        // TODO add your handling code here:
-        updateDataBtn();
-    }//GEN-LAST:event_updateBtnActionPerformed
-
-    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-        // TODO add your handling code here:
-        populateStaffTable(staffTable);
-        populateMonthlyTable(monthlyTable);
-    }//GEN-LAST:event_refreshBtnActionPerformed
 
     private void monthlyTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_monthlyTableMouseClicked
         // TODO add your handling code here:
@@ -516,11 +487,6 @@ public class busdaily extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_departureTimeActionPerformed
 
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        // TODO add your handling code here:
-        deleteDataBtn();
-    }//GEN-LAST:event_deleteBtnActionPerformed
-
     private void busTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_busTableMouseClicked
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) busTable.getModel();
@@ -535,18 +501,26 @@ public class busdaily extends javax.swing.JPanel {
         idbusdaily.setText(model.getValueAt(selectIndex, 6).toString());
     }//GEN-LAST:event_busTableMouseClicked
 
-    private void addBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtn1ActionPerformed
+    private void pictureBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureBox1MouseClicked
         // TODO add your handling code here:
         addDataBtn();
-    }//GEN-LAST:event_addBtn1ActionPerformed
+    }//GEN-LAST:event_pictureBox1MouseClicked
+
+    private void pictureBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureBox2MouseClicked
+        // TODO add your handling code here:
+        deleteDataBtn();
+    }//GEN-LAST:event_pictureBox2MouseClicked
+
+    private void pictureBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pictureBox3MouseClicked
+        // TODO add your handling code here:
+        updateDataBtn();
+    }//GEN-LAST:event_pictureBox3MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addBtn1;
     private javax.swing.JTextField busRoute;
     private javax.swing.JTable busTable;
     private javax.swing.JTextField conductorField;
-    private javax.swing.JButton deleteBtn;
     private javax.swing.JTextField departureTime;
     private javax.swing.JTextField driverField;
     private javax.swing.JLabel idbusdaily;
@@ -569,10 +543,11 @@ public class busdaily extends javax.swing.JPanel {
     private swing.PanelBorder panelBorder5;
     private swing.PanelBorder panelBorder6;
     private swing.PanelBorder panelBorder8;
-    private javax.swing.JButton refreshBtn;
+    private swing.PictureBox pictureBox1;
+    private swing.PictureBox pictureBox2;
+    private swing.PictureBox pictureBox3;
     private javax.swing.JTextField seatField;
     private javax.swing.JTable staffTable;
-    private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 
     
